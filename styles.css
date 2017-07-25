@@ -3,3 +3,10 @@
 	list-style-type: none; 
 	cursor: pointer;
 }
+.lines {
+	display: inline-block;
+    list-style-type: none;
+    border-bottom: 1px solid black;
+    margin-left: 5px;
+    width: 30px; 
+}
