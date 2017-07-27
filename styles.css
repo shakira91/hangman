@@ -1,3 +1,7 @@
+.container{
+	 max-width: 600px;
+	 margin: 0 auto;
+ }
 #letters ul li {
 	display: inline;
 	list-style-type: none; 
@@ -11,4 +15,26 @@
     width: 30px; 
 }
 
-
+ #stick {
+    position: relative;
+    float: right;
+    top: 120px;
+    border-bottom: 2px solid black;
+    width: 291px;
+    height: 150px;
+ }
+  #stick div:nth-of-type(1) {
+    position: absolute;
+    width: 300px;
+    border-bottom: 1px solid black;
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+  #stick div:nth-of-type(2) {
+    position: absolute;
+    width: 100px;
+    border-bottom: 2px solid black;
+    top: -150px;
+    left: 150px;
+  }
