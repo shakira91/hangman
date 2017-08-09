@@ -44,7 +44,7 @@ var Hangman = (function(){
           if (word.includes(userInput)) {
             for (var e = 0; e < words[game].length; e++) {
                 var index = word.indexOf(userInput, e);
-                $(".letter:contains('"+userInput+"')").css( "opacity", "0.5" );
+                $(".letter:contains('"+userInput+"')").addClass("chosen-correctly");
                 if ($(".lines").hasClass(index)) {
                   $("." + index).html(userInput);
                 }
@@ -60,7 +60,7 @@ var Hangman = (function(){
             counter --;
             $("#turnsLeft").show();
             $("#turnsLeft").html("<p>You have " + counter + " turns left.</p>");
-            $(".letter:contains('"+userInput+"')").css( "color", "red" );
+            $(".letter:contains('"+userInput+"')").addClass("incorrectly-chosen");
             checkCount(counter);
           }
         } else {

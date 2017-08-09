@@ -38,3 +38,9 @@
     top: -150px;
     left: 150px;
   }
+  .incorrectly-chosen {
+    color: red;
+  }
+  .chosen-correctly {
+    opacity: 0.5;
+  }
