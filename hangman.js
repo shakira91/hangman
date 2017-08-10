@@ -26,6 +26,16 @@ var Hangman = (function(){
 
   var guessLetters = function(word, line) {
 
+    $('#input').on('input', function() {
+         $(".letter").each(function(){
+          if ($(this).text() == userInput && $(this).hasClass("incorrectly-chosen", "chosen-correctly")) {
+            alert("already entered")
+            $("#input").val("");
+          }
+      });
+    });
+
+
     $("#submit").on("click", function() {
 
       userInput = $("#input").val().toUpperCase();
@@ -38,7 +48,6 @@ var Hangman = (function(){
           alert("please enter a valid letter")
         }
       }
-
       if (userInput !== "" && validate()) {
 
           if (word.includes(userInput)) {
