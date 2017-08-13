@@ -26,55 +26,51 @@ var Hangman = (function(){
 
   var guessLetters = function(word, line) {
 
-    $('#input').on('input', function() {
-         $(".letter").each(function(){
-          if ($(this).text() == userInput && $(this).hasClass("incorrectly-chosen", "chosen-correctly")) {
-            alert("already entered")
-            $("#input").val("");
-          }
-      });
-    });
-
-
     $("#submit").on("click", function() {
 
       userInput = $("#input").val().toUpperCase();
       $("#input").val("");
 
-      var validate = function () {
-        if (/^[A-Z]$/.test(userInput)){
-          return true;
-        } else {
-          alert("please enter a valid letter")
-        }
-      }
-      if (userInput !== "" && validate()) {
-
-          if (word.includes(userInput)) {
-            for (var e = 0; e < words[game].length; e++) {
-                var index = word.indexOf(userInput, e);
-                $(".letter:contains('"+userInput+"')").addClass("chosen-correctly");
-                if ($(".lines").hasClass(index)) {
-                  $("." + index).html(userInput);
-                }
-              } 
-              line--; console.log(line)
-              if (line == 0) {
-                alert("yay you won. Next game?")
-                $("#turnsLeft").hide();
-                // $("#start").show();
-                //   game++;
-              }
-          } else {
-            counter --;
-            $("#turnsLeft").show();
-            $("#turnsLeft").html("<p>You have " + counter + " turns left.</p>");
-            $(".letter:contains('"+userInput+"')").addClass("incorrectly-chosen");
-            checkCount(counter);
+      if ($(".letter:contains('"+userInput+"')").hasClass("incorrectly-chosen") ||
+        $(".letter:contains('"+userInput+"')").hasClass("chosen-correctly")) {
+        alert("already chosen");
+      } else {
+        var validate = function () {
+            if (/^[A-Z]$/.test(userInput)){
+              return true;
+            } else {
+              alert("please enter a valid letter")
+            }
           }
-        } else {
-          alert("Please enter a letter");
-        }
+          if (userInput !== "" && validate()) {
+
+              if (word.includes(userInput)) {
+                for (var e = 0; e < words[game].length; e++) {
+                    var index = word.indexOf(userInput, e);
+                    $(".letter:contains('"+userInput+"')").addClass("chosen-correctly");
+                    if ($(".lines").hasClass(index)) {
+                      $("." + index).html(userInput);
+                      console.log(userInput)
+                    } 
+                  }
+                  line--; console.log(line)
+                  if (line == 0) {
+                    alert("yay you won. Next game?")
+                    $("#turnsLeft").hide();
+                    // $("#start").show();
+                    //   game++;
+                  } 
+              } else {
+                counter --;
+                $("#turnsLeft").show();
+                $("#turnsLeft").html("<p>You have " + counter + " turns left.</p>");
+                $(".letter:contains('"+userInput+"')").addClass("incorrectly-chosen");
+                checkCount(counter);
+              }
+            } else {
+              alert("Please enter a letter");
+            }
+      }
     });
   };
 
