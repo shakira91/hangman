@@ -1,12 +1,53 @@
-.container{
+body {
+    background: #83BCA9;
+    font-family: 'Acme', sans-serif;
+    color: white;
+}
+
+#start {
+    font-family: 'Acme', sans-serif;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 285px;
+    top: 50%;
+    font-size: 24px;
+    border: 2px solid white;
+    background: none;
+    color: white;
+    padding: 13px 5px;
+    cursor: pointer;
+}
+
+#start:hover {
+    transition: 1s ease all;
+    opacity: 0.5;
+}
+
+#letters {
+    font-size: 3em;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1214px;
+    top: 50%;
+}
+
+#letters ul li {
+    display: inline;
+    margin-left: 10px;
+    list-style-type: none; 
+}
+
+.container {
 	 max-width: 600px;
 	 margin: 0 auto;
  }
-#letters ul li {
-	display: inline;
-	list-style-type: none; 
-	cursor: pointer;
-}
+
 .lines {
 	display: inline-block;
     list-style-type: none;

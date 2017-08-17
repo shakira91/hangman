@@ -50,10 +50,9 @@ var Hangman = (function(){
                     $(".letter:contains('"+userInput+"')").addClass("chosen-correctly");
                     if ($(".lines").hasClass(index)) {
                       $("." + index).html(userInput);
-                      console.log(userInput)
                     } 
                   }
-                  line--; console.log(line)
+                  line--;
                   if (line == 0) {
                     alert("yay you won. Next game?")
                     $("#turnsLeft").hide();
@@ -78,6 +77,7 @@ var Hangman = (function(){
     if (counter == 5) {
         drawHead();
       } else if (counter == 4) {
+        drawTheRest();
         alert("draw the body")
       } else if (counter == 3) {
         alert("draw the right arm")
@@ -91,6 +91,13 @@ var Hangman = (function(){
       } 
   }
   
+  var drawTheRest = function() {
+    var c = document.getElementById("rest");
+    var ctx = c.getContext("2d");
+    ctx.moveTo(100,0);
+    ctx.lineTo(100,100);
+    ctx.stroke();
+  };
 
   var drawHead = function() {
     var c = document.getElementById("head");
