@@ -15,7 +15,7 @@ var Hangman = (function(){
         $("#guessLetters ul").append("<li class='lines "+ w +"'></li>");
       }   
       $("<div id='wordLength'>This word has " + w + " letters.</div>").insertAfter("#guessLetters");
-      $("#letters, #input, label, #submit, #stick").show();
+      $("#letters, #input, label, #submit, #stick, #wordLength").fadeIn();
       $("#start").hide();
 
       guessLetters(words[game], w);

@@ -1,6 +1,6 @@
 body {
     background: #83BCA9;
-    font-family: 'Acme', sans-serif;
+    font-family: 'Muli', sans-serif;
     color: white;
 }
 
@@ -26,6 +26,10 @@ body {
     opacity: 0.5;
 }
 
+#wordLength {
+    font-size: 2em;
+}
+
 #letters {
     font-size: 3em;
     position: absolute;
@@ -33,14 +37,20 @@ body {
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    max-width: 1214px;
+    max-width: 845px;
     top: 50%;
+    text-align: center;
 }
 
 #letters ul li {
-    display: inline;
-    margin-left: 10px;
-    list-style-type: none; 
+    display: inline-block;
+    list-style-type: none;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 0px 10px;
+    border-radius: 4px; 
+    margin-bottom: 10px;
+    font-family: 'Acme', sans-serif;
+
 }
 
 .container {
@@ -51,9 +61,12 @@ body {
 .lines {
 	display: inline-block;
     list-style-type: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
     margin-left: 5px;
     width: 30px; 
+    text-align: center;
+    padding: 10px;
+    font-size: 2em;
 }
 
  #stick {
@@ -79,9 +92,11 @@ body {
     top: -150px;
     left: 150px;
   }
-  .incorrectly-chosen {
-    color: red;
+  .incorrectly-chosen {   
+    background: rgba(255, 0, 0, 0.24) !important;
+    color: #e20909;
   }
   .chosen-correctly {
-    opacity: 0.5;
+    background: rgba(33, 191, 78, 0.25) !important;
+    color: #228c22;
   }
