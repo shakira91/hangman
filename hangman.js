@@ -13,11 +13,12 @@ var Hangman = (function(){
     $("#start").on("click", function(){
       for (var w = 0; w < words[game].length; w++) {
         $("#guessLetters ul").append("<li class='lines "+ w +"'></li>");
-      }   
+        $(".lines").html("<br>");
+      }  
       $("<div id='wordLength'>This word has " + w + " letters.</div>").insertAfter("#guessLetters");
       $("#letters, #input, label, #submit, #stick, #wordLength").fadeIn();
       $("#start").hide();
-
+      $("#turnsLeft").html("<p>You have " + counter + " turns left.</p>");
       guessLetters(words[game], w);
 
     });

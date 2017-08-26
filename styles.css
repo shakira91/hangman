@@ -6,19 +6,16 @@ body {
 
 #start {
     font-family: 'Acme', sans-serif;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
     width: 285px;
-    top: 50%;
     font-size: 24px;
     border: 2px solid white;
     background: none;
     color: white;
     padding: 13px 5px;
     cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    margin-top: 30%;
 }
 
 #start:hover {
@@ -28,18 +25,33 @@ body {
 
 #wordLength {
     font-size: 2em;
+    text-align: center;
 }
 
-#letters {
-    font-size: 3em;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 845px;
-    top: 50%;
+#wordInput {
+    margin-left: 39px;
+    display: inline-block;
+}
+
+#turnsLeft {
+    display: inline-block;
+}
+
+#wordInput input{
     text-align: center;
+}
+
+#letters ul{
+    max-width: 375px;
+    font-size: 3em;
+    text-align: justify;
+    display: inline-block;
+}
+
+#guessLetters {
+    text-align: center;
+    margin-bottom: 40px;
+
 }
 
 #letters ul li {
@@ -47,15 +59,17 @@ body {
     list-style-type: none;
     background: rgba(255, 255, 255, 0.25);
     padding: 0px 10px;
-    border-radius: 4px; 
+    border-radius: 4px;
     margin-bottom: 10px;
     font-family: 'Acme', sans-serif;
 
 }
 
 .container {
-	 max-width: 600px;
-	 margin: 0 auto;
+	max-width: 780px;
+    margin: -21px auto;
+    background: rgba(255, 255, 255, 0.16);
+    padding: 45px;
  }
 
 .lines {
@@ -72,23 +86,23 @@ body {
  #stick {
     position: relative;
     float: right;
-    top: 120px;
-    border-bottom: 2px solid black;
-    width: 291px;
+    top: 233px;
+    border-bottom: 2px solid white;
+    width: 296px;
     height: 150px;
  }
   #stick div:nth-of-type(1) {
     position: absolute;
     width: 300px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid white;
     -ms-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
   }
   #stick div:nth-of-type(2) {
     position: absolute;
-    width: 100px;
-    border-bottom: 2px solid black;
+    width: 73px;
+    border-bottom: 2px solid white;
     top: -150px;
     left: 150px;
   }

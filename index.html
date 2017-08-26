@@ -11,19 +11,23 @@
 </head>
 <body>
     <div class="container">
-    <div id="guessLetters"><ul></ul></div>
-    <div id='turnsLeft'></div>
+    <div id="guessLetters"><ul></ul></div><br>
+    <div id="one">
+        <div id="wordInput">
+            <label style="display:none;">Enter a letter</label>
+            <input type="text" name="" maxlength="1" id="input" style="display:none;">
+            <button style="display:none;" id="submit">Guess</button>
+        </div>
+        <div id="turnsLeft"></div>
+    </div>
     <button id="start">Play Game?</button>
-    <label style="display:none;">Enter a letter</label>
-    <input type="text" name="" maxlength="1" id="input" style="display:none;">
-    <button style="display:none;" id="submit">Guess</button>
     <div style="display:none;" id="stick">
         <div></div>
         <div></div>
         <canvas id="head" width="150" height="150"></canvas>
         <canvas id="rest" width="150" height="150"></canvas>
     </div>
-    </div>
+    
     <div id="letters" style="display:none;">
         <ul>
             <li class="letter A">A</li>
@@ -52,9 +56,10 @@
             <li class="letter X">X</li>
             <li class="letter Y">Y</li>
             <li class="letter Z">Z</li>
+            <li class="next" disabled>Next Game?</li>
         </ul>
     </div>
-       
+</div>       
 
 
 
