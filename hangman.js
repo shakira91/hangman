@@ -3,37 +3,51 @@ $(document).ready(function(){
 var Hangman = (function(){
   "use strict";
   
-  var words = ["UNI", "yasss"];
+  var words = ["UNI", "yasss", "pooooooooop"];
   var game = 0; //this need to increase IF the person guesses the right answer beforehand.
+  var line = null;
   var counter = 6;
   var userInput;
 
 
   var begin = function() {
-    $("#start").on("click", function(){
-      for (var w = 0; w < words[game].length; w++) {
-        $("#guessLetters ul").append("<li class='lines "+ w +"'></li>");
+    console.log(words)
+    $(".next").on("click", function(){
+      $("#submit").prop("disabled", false);
+      $(".next button").prop("disabled", true);
+      $(".incorrectly-chosen").removeClass("incorrectly-chosen");
+      $(".chosen-correctly").removeClass("chosen-correctly");
+
+      counter = 6;
+      $(".next button").removeClass("blink");
+      $(".lines").remove();
+      
+
+      for (var line = 0; line < words[game].length; line++) {
+        $("#guessLetters ul").append("<li class='lines "+ line +"'></li>");
         $(".lines").html("<br>");
       }  
-      $("<div id='wordLength'>This word has " + w + " letters.</div>").insertAfter("#guessLetters");
+
+      $("#wordLength").html("<p>This word has " + line + " letters.</p>");
       $("#letters, #input, label, #submit, #stick, #wordLength").fadeIn();
-      $("#start").hide();
+      $(".first").hide();
       $("#turnsLeft").html("<p>You have " + counter + " turns left.</p>");
-      guessLetters(words[game], w);
+      guessLetters(words[game], line);
 
     });
  
   };
 
   var guessLetters = function(word, line) {
-
     $("#submit").on("click", function() {
-
       userInput = $("#input").val().toUpperCase();
+      console.log(word.includes(userInput))
+      console.log(word)
+      console.log(line)
+      console.log(game)
       $("#input").val("");
-
       if ($(".letter:contains('"+userInput+"')").hasClass("incorrectly-chosen") ||
-        $(".letter:contains('"+userInput+"')").hasClass("chosen-correctly")) {
+          $(".letter:contains('"+userInput+"')").hasClass("chosen-correctly")) {
         alert("already chosen");
       } else {
         var validate = function () {
@@ -46,6 +60,7 @@ var Hangman = (function(){
           if (userInput !== "" && validate()) {
 
               if (word.includes(userInput)) {
+                alert("yas")
                 for (var e = 0; e < words[game].length; e++) {
                     var index = word.indexOf(userInput, e);
                     $(".letter:contains('"+userInput+"')").addClass("chosen-correctly");
@@ -56,9 +71,18 @@ var Hangman = (function(){
                   line--;
                   if (line == 0) {
                     alert("yay you won. Next game?")
-                    $("#turnsLeft").hide();
-                    // $("#start").show();
-                    //   game++;
+                    $(".next").css("opacity", "1");
+                    $(".next button").addClass("blink");
+                    $("#submit").prop("disabled", true);
+                    $(".next button").prop("disabled", false);
+
+                      
+                      $(".next").on("click", function(){
+                        words.shift();
+                        begin(words); 
+                        $("#turnsLeft").fadeIn();
+                      });
+                      
                   } 
               } else {
                 counter --;

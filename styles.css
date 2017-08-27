@@ -4,7 +4,7 @@ body {
     color: white;
 }
 
-#start {
+.first {
     font-family: 'Acme', sans-serif;
     width: 285px;
     font-size: 24px;
@@ -18,7 +18,7 @@ body {
     margin-top: 30%;
 }
 
-#start:hover {
+.first:hover {
     transition: 1s ease all;
     opacity: 0.5;
 }
@@ -35,10 +35,21 @@ body {
 
 #turnsLeft {
     display: inline-block;
+    margin-left: 32%;
 }
 
 #wordInput input{
     text-align: center;
+    background: no-repeat;
+    border: 1px solid white;
+}
+
+#wordInput button {
+    background: white;
+    border: none;
+    padding: 2px 14px;
+    color: #83bca9;
+    cursor: pointer;
 }
 
 #letters ul{
@@ -83,7 +94,7 @@ body {
     font-size: 2em;
 }
 
- #stick {
+#stick {
     position: relative;
     float: right;
     top: 233px;
@@ -91,26 +102,46 @@ body {
     width: 296px;
     height: 150px;
  }
-  #stick div:nth-of-type(1) {
+#stick div:nth-of-type(1) {
     position: absolute;
-    width: 300px;
+    width: 301px;
     border-bottom: 1px solid white;
     -ms-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
   }
-  #stick div:nth-of-type(2) {
+#stick div:nth-of-type(2) {
     position: absolute;
     width: 73px;
     border-bottom: 2px solid white;
     top: -150px;
     left: 150px;
   }
-  .incorrectly-chosen {   
+.incorrectly-chosen {   
     background: rgba(255, 0, 0, 0.24) !important;
     color: #e20909;
-  }
-  .chosen-correctly {
+}
+
+.chosen-correctly {
     background: rgba(33, 191, 78, 0.25) !important;
     color: #228c22;
-  }
+}
+
+
+.next button {
+    font-size: .9em;
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: white;
+    font-family: 'Acme', sans-serif;
+    padding: 0px 10px;
+ }
+
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {  
+    50% { opacity: 0; }
+}

@@ -12,6 +12,7 @@
 <body>
     <div class="container">
     <div id="guessLetters"><ul></ul></div><br>
+    <div id="wordLength"></div>
     <div id="one">
         <div id="wordInput">
             <label style="display:none;">Enter a letter</label>
@@ -20,7 +21,7 @@
         </div>
         <div id="turnsLeft"></div>
     </div>
-    <button id="start">Play Game?</button>
+    <button class="next first">Play Game?</button>
     <div style="display:none;" id="stick">
         <div></div>
         <div></div>
@@ -56,7 +57,7 @@
             <li class="letter X">X</li>
             <li class="letter Y">Y</li>
             <li class="letter Z">Z</li>
-            <li class="next" disabled>Next Game?</li>
+            <li class="next"><button>Next Game?</button></li>
         </ul>
     </div>
 </div>       
