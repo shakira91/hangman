@@ -9,9 +9,8 @@ var Hangman = (function(){
   var counter = 6;
   var userInput;
 
-
   var begin = function() {
-    console.log(words)
+    console.log(words[game])
     $(".next").on("click", function(){
       $("#submit").prop("disabled", false);
       $(".next button").prop("disabled", true);
@@ -21,7 +20,6 @@ var Hangman = (function(){
       counter = 6;
       $(".next button").removeClass("blink");
       $(".lines").remove();
-      
 
       for (var line = 0; line < words[game].length; line++) {
         $("#guessLetters ul").append("<li class='lines "+ line +"'></li>");
@@ -32,17 +30,19 @@ var Hangman = (function(){
       $("#letters, #input, label, #submit, #stick, #wordLength").fadeIn();
       $(".first").hide();
       $("#turnsLeft").html("<p>You have " + counter + " turns left.</p>");
-      guessLetters(words[game], line);
+      
+      guessLetters(words[game], line); 
 
     });
  
   };
 
   var guessLetters = function(word, line) {
+    console.log(word)
     $("#submit").on("click", function() {
       userInput = $("#input").val().toUpperCase();
       console.log(word.includes(userInput))
-      console.log(word)
+      
       console.log(line)
       console.log(game)
       $("#input").val("");
@@ -75,11 +75,11 @@ var Hangman = (function(){
                     $(".next button").addClass("blink");
                     $("#submit").prop("disabled", true);
                     $(".next button").prop("disabled", false);
-
+game++;
                       
                       $(".next").on("click", function(){
-                        words.shift();
-                        begin(words); 
+                        
+                        begin(); 
                         $("#turnsLeft").fadeIn();
                       });
                       
