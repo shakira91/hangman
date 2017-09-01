@@ -3,25 +3,34 @@ $(document).ready(function(){
 var Hangman = (function(){
   "use strict";
   
-  var words = ["UNI", "yasss", "pooooooooop"];
-  var game = 0; //this need to increase IF the person guesses the right answer beforehand.
-  var line = null;
+  var line;
   var counter = 6;
   var userInput;
+  var words;
 
-  var begin = function() {
-    console.log(words[game])
-    $(".next").on("click", function(){
-      $("#submit").prop("disabled", false);
-      $(".next button").prop("disabled", true);
-      $(".incorrectly-chosen").removeClass("incorrectly-chosen");
-      $(".chosen-correctly").removeClass("chosen-correctly");
+  var getWords = function() {
+    $.ajaxPrefilter(function(options) {
+        if (options.crossDomain && $.support.cors) {
+        options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
+      }
+    });
 
-      counter = 6;
-      $(".next button").removeClass("blink");
-      $(".lines").remove();
+    $.ajax({
+      type: 'GET',
+      url: 'https://api.datamuse.com/words?rel_jjb=happy',
+      crossDomain: true,
+      crossOrigin: true
+    }).done(function(response){
 
-      for (var line = 0; line < words[game].length; line++) {
+      words = response[Math.floor(Math.random() * response.length)].word.toUpperCase();
+      
+      setUp(); 
+
+    }); 
+  };
+  
+  var setUp = function() {  
+      for (var line = 0; line < words.length; line++) {
         $("#guessLetters ul").append("<li class='lines "+ line +"'></li>");
         $(".lines").html("<br>");
       }  
@@ -30,22 +39,26 @@ var Hangman = (function(){
       $("#letters, #input, label, #submit, #stick, #wordLength").fadeIn();
       $(".first").hide();
       $("#turnsLeft").html("<p>You have " + counter + " turns left.</p>");
-      
-      guessLetters(words[game], line); 
-
-    });
- 
+      guessLetters(words, line);
   };
 
-  var guessLetters = function(word, line) {
-    console.log(word)
+  var next = function() {
+    $(".next").css("opacity", "1");
+    $(".next button").addClass("blink");
+    $("#submit").prop("disabled", true);
+    $(".next button").prop("disabled", false);
+    
+    $(".next").on("click", function(){ 
+        window.location.reload();
+    }); 
+  };
+
+
+  var guessLetters = function(words, line) {   
     $("#submit").on("click", function() {
       userInput = $("#input").val().toUpperCase();
-      console.log(word.includes(userInput))
-      
-      console.log(line)
-      console.log(game)
       $("#input").val("");
+
       if ($(".letter:contains('"+userInput+"')").hasClass("incorrectly-chosen") ||
           $(".letter:contains('"+userInput+"')").hasClass("chosen-correctly")) {
         alert("already chosen");
@@ -59,10 +72,9 @@ var Hangman = (function(){
           }
           if (userInput !== "" && validate()) {
 
-              if (word.includes(userInput)) {
-                alert("yas")
-                for (var e = 0; e < words[game].length; e++) {
-                    var index = word.indexOf(userInput, e);
+              if (words.includes(userInput)) {
+                for (var e = 0; e < words.length; e++) {
+                    var index = words.indexOf(userInput, e);
                     $(".letter:contains('"+userInput+"')").addClass("chosen-correctly");
                     if ($(".lines").hasClass(index)) {
                       $("." + index).html(userInput);
@@ -70,19 +82,7 @@ var Hangman = (function(){
                   }
                   line--;
                   if (line == 0) {
-                    alert("yay you won. Next game?")
-                    $(".next").css("opacity", "1");
-                    $(".next button").addClass("blink");
-                    $("#submit").prop("disabled", true);
-                    $(".next button").prop("disabled", false);
-game++;
-                      
-                      $(".next").on("click", function(){
-                        
-                        begin(); 
-                        $("#turnsLeft").fadeIn();
-                      });
-                      
+                      next();       
                   } 
               } else {
                 counter --;
@@ -94,8 +94,8 @@ game++;
             } else {
               alert("Please enter a letter");
             }
-      }
-    });
+          }
+      });
   };
 
   var checkCount = function(counter) { 
@@ -111,8 +111,8 @@ game++;
       } else if (counter == 1) {
         alert("draw the right leg")
       } else if (counter == 0) {
-        alert("awww RIP")
-        $("#turnsLeft").hide();
+        next();
+        //sad face
       } 
   }
   
@@ -133,10 +133,10 @@ game++;
   };
 
   return {
-    begin: begin
+    getWords: getWords
   }
 
 
 }());
-Hangman.begin();
+Hangman.getWords();
 });      
