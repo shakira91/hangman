@@ -4,9 +4,10 @@ var Hangman = (function(){
   "use strict";
   
   var line;
-  var counter = 6;
+  var counter = 10;
   var userInput;
   var words;
+  var correct = 0;
 
   var getWords = function() {
     $.ajaxPrefilter(function(options) {
@@ -22,10 +23,10 @@ var Hangman = (function(){
       crossOrigin: true
     }).done(function(response){
 
-      words = response[Math.floor(Math.random() * response.length)].word.toUpperCase();
-      
+      var word = response[Math.floor(Math.random() * response.length)].word.toUpperCase();
+      words = word.split("");
       setUp(); 
-
+      console.log(words)
     }); 
   };
   
@@ -37,12 +38,11 @@ var Hangman = (function(){
 
       $("#wordLength").html("<p>This word has " + line + " letters.</p>");
       $("#letters, #input, label, #submit, #stick, #wordLength").fadeIn();
-      $(".first").hide();
       $("#turnsLeft").html("<p>You have " + counter + " turns left.</p>");
-      guessLetters(words, line);
+      guessLetters(words);
   };
 
-  var next = function() {
+  var clear = function() {
     $(".next").css("opacity", "1");
     $(".next button").addClass("blink");
     $("#submit").prop("disabled", true);
@@ -54,12 +54,11 @@ var Hangman = (function(){
   };
 
 
-  var guessLetters = function(words, line) {   
+  var guessLetters = function(words) {  
     $("#submit").on("click", function() {
       userInput = $("#input").val().toUpperCase();
       $("#input").val("");
-
-      if ($(".letter:contains('"+userInput+"')").hasClass("incorrectly-chosen") ||
+        if ($(".letter:contains('"+userInput+"')").hasClass("incorrectly-chosen") ||
           $(".letter:contains('"+userInput+"')").hasClass("chosen-correctly")) {
         alert("already chosen");
       } else {
@@ -67,24 +66,24 @@ var Hangman = (function(){
             if (/^[A-Z]$/.test(userInput)){
               return true;
             } else {
-              alert("please enter a valid letter")
+              alert("please enter a valid letter");
             }
           }
           if (userInput !== "" && validate()) {
-
               if (words.includes(userInput)) {
-                for (var e = 0; e < words.length; e++) {
-                    var index = words.indexOf(userInput, e);
-                    $(".letter:contains('"+userInput+"')").addClass("chosen-correctly");
-                    if ($(".lines").hasClass(index)) {
-                      $("." + index).html(userInput);
-                    } 
-                  }
-                  line--;
-                  if (line == 0) {
-                      next();       
-                  } 
-              } else {
+              for (var r = 0; r < words.length; r++) {
+                if (userInput == words[r]) {
+                  $("." + r).html(words[r]);               
+                  $(".letter:contains('"+userInput+"')").addClass("chosen-correctly");
+                  correct += 1;
+                }
+              }
+              if (correct == words.length) {            
+                $("#turnsLeft").html("<p>Hooray! You won!</p>");
+                $("#banana").fadeIn();
+                clear();  
+              }
+            } else {
                 counter --;
                 $("#turnsLeft").show();
                 $("#turnsLeft").html("<p>You have " + counter + " turns left.</p>");
@@ -95,7 +94,7 @@ var Hangman = (function(){
               alert("Please enter a letter");
             }
           }
-      });
+     });
   };
 
   var checkCount = function(counter) { 
@@ -111,7 +110,8 @@ var Hangman = (function(){
       } else if (counter == 1) {
         alert("draw the right leg")
       } else if (counter == 0) {
-        next();
+        clear();
+        $("body").append("<div id='lose'>Aww, so close. The word was" + words + "</div>");
         //sad face
       } 
   }

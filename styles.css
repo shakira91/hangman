@@ -4,25 +4,6 @@ body {
     color: white;
 }
 
-.first {
-    font-family: 'Acme', sans-serif;
-    width: 285px;
-    font-size: 24px;
-    border: 2px solid white;
-    background: none;
-    color: white;
-    padding: 13px 5px;
-    cursor: pointer;
-    margin: 0 auto;
-    display: block;
-    margin-top: 30%;
-}
-
-.first:hover {
-    transition: 1s ease all;
-    opacity: 0.5;
-}
-
 #wordLength {
     font-size: 2em;
     text-align: center;
@@ -138,10 +119,21 @@ body {
     padding: 0px 10px;
  }
 
+ .next {
+    opacity: 0.3;
+ }
+
 .blink {
     animation: blinker 1s linear infinite;
 }
 
 @keyframes blinker {  
     50% { opacity: 0; }
+}
+
+#banana {
+    display: none;
+    width: 88px;
+    position: absolute;
+    right: 33%;
 }
