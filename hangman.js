@@ -4,10 +4,11 @@ var Hangman = (function(){
   "use strict";
   
   var line;
-  var counter = 10;
+  var counter = 6;
   var userInput;
   var words;
   var correct = 0;
+  var context; 
 
   var getWords = function() {
     $.ajaxPrefilter(function(options) {
@@ -66,7 +67,7 @@ var Hangman = (function(){
             if (/^[A-Z]$/.test(userInput)){
               return true;
             } else {
-              alert("please enter a valid letter");
+              alert("Please enter a valid letter");
             }
           }
           if (userInput !== "" && validate()) {
@@ -75,7 +76,7 @@ var Hangman = (function(){
                 if (userInput == words[r]) {
                   $("." + r).html(words[r]);               
                   $(".letter:contains('"+userInput+"')").addClass("chosen-correctly");
-                  correct += 1;
+                  correct ++;
                 }
               }
               if (correct == words.length) {            
@@ -99,37 +100,75 @@ var Hangman = (function(){
 
   var checkCount = function(counter) { 
     if (counter == 5) {
-        drawHead();
+        count5();
       } else if (counter == 4) {
-        drawTheRest();
-        alert("draw the body")
+        count4();
       } else if (counter == 3) {
-        alert("draw the right arm")
+        count3();
       } else if (counter == 2) {
-        alert("draw the left arm")
+        count2();
       } else if (counter == 1) {
-        alert("draw the right leg")
+        count1();
       } else if (counter == 0) {
         clear();
-        $("body").append("<div id='lose'>Aww, so close. The word was" + words + "</div>");
+        $("#wordLength").html("Aww, so close. The word was " + words.join(""));
+        $("#one").hide();
         //sad face
       } 
   }
   
-  var drawTheRest = function() {
-    var c = document.getElementById("rest");
-    var ctx = c.getContext("2d");
-    ctx.moveTo(100,0);
-    ctx.lineTo(100,100);
-    ctx.stroke();
+  var count5 = function() {
+    var canvas = document.getElementById("man");
+    context = canvas.getContext("2d"); 
+
+    context.beginPath();
+    context.fillStyle = "rgba(0, 0, 200, 0)";
+    context.lineWidth = 2;
+    context.strokeStyle = '#FFFFFF';
+    context.arc(200, 50, 30, 0, Math.PI * 2, true); 
+    context.fill();
+    context.stroke();
+      
   };
 
-  var drawHead = function() {
-    var c = document.getElementById("head");
-    var ctx = c.getContext("2d");
-    ctx.beginPath();
-    ctx.arc(100, 75, 50, 0, 2 * Math.PI);
-    ctx.stroke();
+  var count4 = function() {
+    context.beginPath();
+    context.fillStyle = "#FFFFFF"; 
+    context.arc(190, 45, 3, 0, Math.PI * 2, true); 
+    context.fill();
+    context.arc(210, 45, 3, 0, Math.PI * 2, true); 
+    context.fill();
+  }
+
+  var count3 = function() {
+    context.beginPath();
+    context.moveTo(200, 80);
+    context.lineTo(200, 180);
+    context.strokeStyle = "#FFFFFF";
+    context.stroke();
+
+  };
+
+  var count2 = function() {
+    context.beginPath();
+    context.strokeStyle = "#FFFFFF"; // blue
+    context.moveTo(200, 80);
+    context.lineTo(150, 130);
+    context.moveTo(200, 80);
+    context.lineTo(250, 130);
+    context.stroke();
+
+  };
+
+  var count1 = function() {
+    context.beginPath();
+    context.strokeStyle = "#FFFFFF";
+    context.moveTo(200, 180);
+    context.lineTo(150, 280);
+    context.moveTo(200, 180);
+    context.lineTo(250, 280);
+    context.stroke();
+
   };
 
   return {
