@@ -56,7 +56,12 @@ var Hangman = (function(){
 
 
   var guessLetters = function(words) {  
-    $("#submit").on("click", function() {
+    $("#input").keydown(function(e){    
+      if(e.keyCode === 13){
+         $("#submit").trigger("click");
+      }
+    });
+    $("#submit").on("keypress click", function() {
       userInput = $("#input").val().toUpperCase();
       $("#input").val("");
         if ($(".letter:contains('"+userInput+"')").hasClass("incorrectly-chosen") ||
